@@ -1,0 +1,17 @@
+spring:
+   application:
+      name: admin-service
+   cloud:
+      config:
+         enabled: false
+      discovery:
+         enabled: false
+#         uri: https://configuration-server.benit.io
+#         username: benit
+#         password: 123456a@
+
+management:
+   endpoints:
+      web:
+         exposure:
+            include: "*"
