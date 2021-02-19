@@ -3,17 +3,19 @@ package com.benit.team.controller;
 //all the controller logic goes here
 
 import com.benit.team.base.response.ResponseData;
-import com.benit.team.dto.location.DistanceDTO;
+import com.benit.team.dto.teacher.AssignedTeacher;
+import com.benit.team.dto.teacher.PickTeacherDTO;
+import com.benit.team.dto.teacher.TeacherDTO;
 import com.benit.team.dto.location.PositionDTO;
 import com.benit.team.entity.Student;
 import com.benit.team.entity.Teacher;
+import com.benit.team.entity.TrackingStudent;
 import com.benit.team.service.StudentService;
 import com.benit.team.service.TeacherService;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -63,18 +65,28 @@ public class AdminController {
         return studentService.getStudentById(student_id);
     }
 
-
 //    get coordinate
     @GetMapping("/location/{location}")
     public PositionDTO getCoordinate(@PathVariable String location){
         return teacherService.getUserCoordinate(location);
     }
 
-
 //    get list teachers
     @PutMapping ("/result/{studentId}")
-    public List<DistanceDTO> getListTeachersForStudent(@PathVariable String studentId){
+    public List<TeacherDTO> getListTeachersForStudent(@PathVariable String studentId){
         return teacherService.getListTeachers(studentId);
     }
 
+
+//    pick teachers
+    @PostMapping("/pick-teachers/{student_id}")
+    public TrackingStudent pickTeachers(@PathVariable String student_id, @RequestBody PickTeacherDTO body){
+        return studentService.pickTeacherBySubject(student_id, body);
+    }
+
+//    get picked Teachers
+    @GetMapping("/{studentId}/teachers")
+    public List<AssignedTeacher> getPickedTeachers(@PathVariable String studentId){
+        return studentService.getPickedTeachers(studentId);
+    }
 }

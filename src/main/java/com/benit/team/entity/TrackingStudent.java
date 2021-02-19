@@ -1,7 +1,6 @@
 package com.benit.team.entity;
-
+import com.benit.team.dto.teacher.AssignedTeacher;
 import com.benit.team.dto.teacher.TeacherDTO;
-import com.benit.team.dto.time.FreeTimeDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,20 +12,12 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@Document("students")
-public class Student {
+@Document("tracking_student")
+public class TrackingStudent {
     @Id
     private String id = UUID.randomUUID().toString();
-
-    private String name;
-    @JsonProperty("dob")
-    private Integer DOB;
-    private String location;
-    private String gender;
-    private List<String> demand;
-    @JsonProperty("free_time")
-    private FreeTimeDTO freeTime;
-
+    @JsonProperty("student_id")
+    private String studentId;
     @JsonProperty("list_teachers")
-    private List<TeacherDTO> listTeachers;
+    private List<AssignedTeacher> listTeachers;
 }

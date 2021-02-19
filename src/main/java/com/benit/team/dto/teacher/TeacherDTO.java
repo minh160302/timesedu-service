@@ -1,13 +1,20 @@
 package com.benit.team.dto.teacher;
-
-import com.benit.team.dto.location.DistanceDTO;
-import com.benit.team.entity.Teacher;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
 public class TeacherDTO {
-    private Teacher teacher;
-    private DistanceDTO distance;
+    private String name;
+    private String id;
+    private String gender;
+    private Integer dob;
+    private String location;
+    private Integer distance;
+    @JsonProperty("travel_time")
+    private Integer travelTime;
+    private List<String> professions;
 }

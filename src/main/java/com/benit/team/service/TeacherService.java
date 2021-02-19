@@ -4,7 +4,7 @@ import com.benit.team.base.response.ResponseData;
 import com.benit.team.dto.api.Distance.DistanceSummary;
 import com.benit.team.dto.api.Position.Location;
 import com.benit.team.dto.api.Position.PositionSummary;
-import com.benit.team.dto.location.DistanceDTO;
+import com.benit.team.dto.teacher.TeacherDTO;
 import com.benit.team.dto.location.PositionDTO;
 import com.benit.team.entity.Student;
 import com.benit.team.entity.Teacher;
@@ -83,8 +83,8 @@ public class TeacherService {
         return userPosition;
     }
 
-    public List<DistanceDTO> getRouteDistance(String studentId, ArrayList<Teacher> teacherList) {
-        List<DistanceDTO> distanceDTOList = new ArrayList<>();
+    public List<TeacherDTO> getRouteDistance(String studentId, ArrayList<Teacher> teacherList) {
+        List<TeacherDTO> teacherDTOList = new ArrayList<>();
         Student student = studentRepository.findStudentById(studentId);
         PositionDTO studentPosition = this.getUserCoordinate(student.getLocation());
 
@@ -94,34 +94,33 @@ public class TeacherService {
             RestTemplate restTemplate = new RestTemplate();
             DistanceSummary result = restTemplate.getForObject(uri, DistanceSummary.class);
 
-            DistanceDTO distanceDTO = new DistanceDTO();
-            distanceDTO.setName(teacher.getName());
-            distanceDTO.setId(teacher.getId());
-            distanceDTO.setLocation(teacherPosition.getTitle());
-            distanceDTO.setGender(teacher.getGender());
-            distanceDTO.setDob(teacher.getDOB());
-            distanceDTO.setProfessions(teacher.getProfessions());
-            distanceDTO.setDistance(result.getResponse().getRoute().get(0).getDistance().getDistance());
-            distanceDTO.setTravelTime(result.getResponse().getRoute().get(0).getDistance().getTravelTime());
+            TeacherDTO teacherDTO = new TeacherDTO();
+            teacherDTO.setName(teacher.getName());
+            teacherDTO.setId(teacher.getId());
+            teacherDTO.setLocation(teacherPosition.getTitle());
+            teacherDTO.setGender(teacher.getGender());
+            teacherDTO.setDob(teacher.getDOB());
+            teacherDTO.setProfessions(teacher.getProfessions());
+            teacherDTO.setDistance(result.getResponse().getRoute().get(0).getDistance().getDistance());
+            teacherDTO.setTravelTime(result.getResponse().getRoute().get(0).getDistance().getTravelTime());
 
-            distanceDTOList.add(distanceDTO);
+            teacherDTOList.add(teacherDTO);
 
         }
 //        sort by distance
 
-        distanceDTOList.sort(new Comparator<DistanceDTO>() {
+        teacherDTOList.sort(new Comparator<TeacherDTO>() {
             @Override
-            public int compare(DistanceDTO o1, DistanceDTO o2) {
+            public int compare(TeacherDTO o1, TeacherDTO o2) {
                 return o1.getDistance().compareTo(o2.getDistance());
             }
         });
 
-        return distanceDTOList;
+        return teacherDTOList;
     }
 
 
-
-    public List<DistanceDTO> getListTeachers(String studentId) {
+    public List<TeacherDTO> getListTeachers(String studentId) {
         Student student = studentRepository.findStudentById(studentId);
         List<String> studentDemand = student.getDemand();
         List<Teacher> teacherListSuitable = new ArrayList<>();
@@ -136,10 +135,9 @@ public class TeacherService {
             });
         }
 
-        List<DistanceDTO> distanceDTOList = this.getRouteDistance(studentId, (ArrayList<Teacher>) teacherListSuitable);
-        student.setListTeachers(distanceDTOList);
+        List<TeacherDTO> teacherDTOList = this.getRouteDistance(studentId, (ArrayList<Teacher>) teacherListSuitable);
+        student.setListTeachers(teacherDTOList);
         studentRepository.save(student);
-        LOGGER.warn("change in db");
-        return distanceDTOList;
+        return teacherDTOList;
     }
 }
