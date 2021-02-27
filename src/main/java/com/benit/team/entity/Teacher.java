@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,6 +26,9 @@ public class Teacher {
     private List<String> professions;
     @JsonProperty("free_time")
     private FreeTimeDTO freeTime;
+
+    @JsonProperty("raw_time_data")
+    private List<Date> rawTimeData;
 }
 
 

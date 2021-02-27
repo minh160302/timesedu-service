@@ -42,6 +42,7 @@ public class TeacherService {
         newTeacher.setGender(teacher.getGender());
         newTeacher.setProfessions(teacher.getProfessions());
         newTeacher.setFreeTime(teacher.getFreeTime());
+        newTeacher.setRawTimeData(teacher.getRawTimeData());
 
         teacherRepository.save(newTeacher);
 
@@ -103,6 +104,7 @@ public class TeacherService {
             teacherDTO.setProfessions(teacher.getProfessions());
             teacherDTO.setDistance(result.getResponse().getRoute().get(0).getDistance().getDistance());
             teacherDTO.setTravelTime(result.getResponse().getRoute().get(0).getDistance().getTravelTime());
+            teacherDTO.setRawTimeData(teacher.getRawTimeData());
 
             teacherDTOList.add(teacherDTO);
 
@@ -139,5 +141,9 @@ public class TeacherService {
         student.setListTeachers(teacherDTOList);
         studentRepository.save(student);
         return teacherDTOList;
+    }
+
+    public Teacher getTeacherById(String teacher_id) {
+        return teacherRepository.findTeacherById(teacher_id);
     }
 }

@@ -65,6 +65,11 @@ public class AdminController {
         return studentService.getStudentById(student_id);
     }
 
+
+    @GetMapping("/teacher/{teacher_id}")
+    public Teacher getTeacherById(@PathVariable String teacher_id){
+        return teacherService.getTeacherById(teacher_id);
+    }
 //    get coordinate
     @GetMapping("/location/{location}")
     public PositionDTO getCoordinate(@PathVariable String location){

@@ -44,6 +44,7 @@ public class StudentService {
         newStudent.setDemand(student.getDemand());
         newStudent.setFreeTime(student.getFreeTime());
         newStudent.setListTeachers(student.getListTeachers());
+        newStudent.setRawTimeData(student.getRawTimeData());
 
         studentRepository.save(newStudent);
 
@@ -74,7 +75,6 @@ public class StudentService {
 
     public TrackingStudent pickTeacherBySubject(String student_id, PickTeacherDTO reqBody) {
         List<TeacherDTO> teacherList = reqBody.getTeacherList();
-        List<String> subjectList = reqBody.getSubjectList();
         Student student = studentRepository.findStudentById(student_id);
 
         TrackingStudent trackingStudent = trackingStudentRepository.findTrackingStudentByStudentId(student_id);
@@ -87,7 +87,6 @@ public class StudentService {
         }
 
         trackingStudent.setStudentId(student.getId());
-        LOGGER.warn("aaaaaaaa");
         Integer subjectIndex = 0;
         for(TeacherDTO teacher: teacherList){
             AssignedTeacher assignedTeacher = new AssignedTeacher();
@@ -95,7 +94,9 @@ public class StudentService {
             assignedTeacher.setLocation(teacher.getLocation());
             assignedTeacher.setName(teacher.getName());
             assignedTeacher.setDob(teacher.getDob());
-            assignedTeacher.setSubject(subjectList.get(subjectIndex));
+            assignedTeacher.setSubject(teacher.getSubject());
+            assignedTeacher.setRawTimeData(teacher.getRawTimeData());
+
             subjectIndex += 1;
             List<TeacherDTO> listTeacherAvailable = student.getListTeachers();
             Integer index = 0;

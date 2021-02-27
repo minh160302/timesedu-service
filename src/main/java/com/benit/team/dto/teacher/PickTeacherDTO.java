@@ -11,6 +11,4 @@ import java.util.List;
 public class PickTeacherDTO {
     @JsonProperty("teacher_list")
     List<TeacherDTO> teacherList;
-    @JsonProperty("subject_list")
-    List<String> subjectList;
 }

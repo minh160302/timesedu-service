@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -29,4 +30,7 @@ public class Student {
 
     @JsonProperty("list_teachers")
     private List<TeacherDTO> listTeachers;
+
+    @JsonProperty("raw_time_data")
+    private List<Date> rawTimeData;
 }

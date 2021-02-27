@@ -3,6 +3,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -17,4 +18,8 @@ public class TeacherDTO {
     @JsonProperty("travel_time")
     private Integer travelTime;
     private List<String> professions;
+    private String subject;
+
+    @JsonProperty("raw_time_data")
+    private List<Date> rawTimeData;
 }
