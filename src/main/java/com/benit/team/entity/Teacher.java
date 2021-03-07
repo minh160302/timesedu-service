@@ -30,35 +30,3 @@ public class Teacher {
     @JsonProperty("raw_time_data")
     private List<Date> rawTimeData;
 }
-
-
-
-//{
-//        "name": "nguoi1",
-//        "dob": 2001,
-//        "location": "4 dang dung, hanoi",
-//        "gender": "male",
-//        "professions": [
-    //        "cap1",
-    //        "cap2",
-    //        "cap3",
-    //        "ielts",
-    //        "tienganhdoanhnghiep"
-//        ],
-//        "free_time": {
-    //        "monday": [
-            //        {
-            //        "start": 18,
-            //        "end": 21
-            //        },
-            //        {
-            //        "start": 9,
-            //        "end": 12
-            //        }
-        //        ]
-    //        }
-//        }
-//
-//        "description": {
-//        "character": "5 nam kinh nghiem"
-//        }

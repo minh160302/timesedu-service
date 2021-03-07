@@ -4,12 +4,18 @@ import com.benit.team.base.response.ResponseData;
 import com.benit.team.dto.api.Distance.DistanceSummary;
 import com.benit.team.dto.api.Position.Location;
 import com.benit.team.dto.api.Position.PositionSummary;
+import com.benit.team.dto.student.AssignedStudent;
+import com.benit.team.dto.teacher.AssignedTeacher;
 import com.benit.team.dto.teacher.TeacherDTO;
 import com.benit.team.dto.location.PositionDTO;
 import com.benit.team.entity.Student;
 import com.benit.team.entity.Teacher;
+import com.benit.team.entity.TrackingStudent;
+import com.benit.team.entity.TrackingTeacher;
 import com.benit.team.repository.StudentRepository;
 import com.benit.team.repository.TeacherRepository;
+import com.benit.team.repository.TrackingStudentRepository;
+import com.benit.team.repository.TrackingTeacherRepository;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -32,6 +38,12 @@ public class TeacherService {
 
     @Autowired
     private StudentRepository studentRepository;
+
+    @Autowired
+    private TrackingTeacherRepository trackingTeacherRepository;
+
+    @Autowired
+    private TrackingStudentRepository trackingStudentRepository;
 
     public Teacher createTeacher(Teacher teacher) {
         Teacher newTeacher = new Teacher();
@@ -146,4 +158,24 @@ public class TeacherService {
     public Teacher getTeacherById(String teacher_id) {
         return teacherRepository.findTeacherById(teacher_id);
     }
+
+
+//    public TrackingTeacher createTrackingTeacher(String teacherId, String studentId) {
+//        TrackingTeacher trackingTeacher = new TrackingTeacher();
+//        List<AssignedStudent> listStudents = new ArrayList<>();
+//
+//        Teacher teacher = teacherRepository.findTeacherById(teacherId);
+//        TrackingStudent trackingStudent = trackingStudentRepository.findTrackingStudentByStudentId(studentId);
+//
+//
+//        trackingTeacher.setTeacherId(teacherId);
+//
+//        List<AssignedTeacher> assignedTeacherList = trackingStudent.getListTeachers();
+//        for(AssignedTeacher assignedTeacher: assignedTeacherList){
+//            if(assignedTeacher.getName().equals(teacher.getName())){
+//
+//            }
+//        }
+//
+//    }
 }

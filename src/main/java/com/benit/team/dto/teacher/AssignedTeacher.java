@@ -1,6 +1,6 @@
 package com.benit.team.dto.teacher;
 import com.benit.team.dto.time.FreeTimeDTO;
-import com.benit.team.dto.time.MeetingTime;
+import com.benit.team.dto.time.MeetingTimeDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,7 +19,9 @@ public class AssignedTeacher {
     private String gender;
     private String name;
     private Integer dob;
-    private List<MeetingTime> time;
+
+    @JsonProperty("meeting_time")
+    private MeetingTimeDTO meetingTime;
 
     @JsonProperty("free_time")
     private FreeTimeDTO freeTime;

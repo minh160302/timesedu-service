@@ -34,6 +34,9 @@ public class StudentService {
     @Autowired
     private TrackingStudentRepository trackingStudentRepository;
 
+    @Autowired
+    private TeacherService teacherService;
+
     public Student createStudent(Student student) {
         Student newStudent = new Student();
         newStudent.setId(student.getId());
@@ -87,7 +90,7 @@ public class StudentService {
         }
 
         trackingStudent.setStudentId(student.getId());
-        Integer subjectIndex = 0;
+//        Integer subjectIndex = 0;
         for(TeacherDTO teacher: teacherList){
             AssignedTeacher assignedTeacher = new AssignedTeacher();
             assignedTeacher.setTeacherId(teacher.getId());
@@ -96,8 +99,9 @@ public class StudentService {
             assignedTeacher.setDob(teacher.getDob());
             assignedTeacher.setSubject(teacher.getSubject());
             assignedTeacher.setRawTimeData(teacher.getRawTimeData());
+            assignedTeacher.setMeetingTime(teacher.getMeetingTime());
 
-            subjectIndex += 1;
+//            subjectIndex += 1;
             List<TeacherDTO> listTeacherAvailable = student.getListTeachers();
             Integer index = 0;
             for(TeacherDTO teacherDTO: listTeacherAvailable){
@@ -107,16 +111,17 @@ public class StudentService {
                     index += 1;
                 }
             }
-
             assignedTeacher.setDistance(student.getListTeachers().get(index).getDistance());
             assignedTeacher.setGender(student.getListTeachers().get(index).getGender());
 
             assignedTeacherList.add(assignedTeacher);
+
+//            teacherService.createTrackingTeacher(teacher.getId(), student.getId());
         }
 
-        trackingStudent.setListTeachers((assignedTeacherList));
+        trackingStudent.setListTeachers(assignedTeacherList);
         trackingStudentRepository.save(trackingStudent);
-        LOGGER.warn("sucesss");
+        LOGGER.warn("success");
         return trackingStudent;
     }
 
